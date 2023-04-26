@@ -1,13 +1,11 @@
 #include "main.h"
 #include <stdlib.h>
-
 /**
  * check_for_specifiers - checks if there is a valid format specifier
  * @format: possible format specifier
  *
  * Return: pointer to valid function or NULL
  */
-
 static int (*check_for_specifiers(const char *format))(va_list)
 {
 	unsigned int i;
@@ -55,7 +53,6 @@ int _printf(const char *format, ...)
 
 	if (format == NULL)
 		return (-1);
-
 	va_start(valist, format);
 
 	while (format[i])
@@ -65,36 +62,24 @@ int _printf(const char *format, ...)
 			_putchar(format[i]);
 			count++;
 		}
-
 		if (!format[i])
-
 			return (count);
-
 		f = check_for_specifiers(&format[i + 1]);
-
 		if (f != NULL)
 		{
 			count += f(valist);
 			i += 2;
-
 			continue;
 		}
-
 		if (!format[i + 1])
-
 			return (-1);
-
 		_putchar(format[i]);
-
 		count++;
-
 		if (format[i + 1] == '%')
 			i += 2;
 		else
 			i++;
 	}
-
 	va_end(valist);
-
 	return (count);
 }
